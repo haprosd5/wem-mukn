@@ -162,33 +162,33 @@
 
     <div class="container">
         <div class="row ng-scope">
-            <div class="col-md-12 mt-4 mb-4">
-                <section class="search-result-item">
-                    <div class="search-result-item-body p-2 mt-2">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#"><img class="image justify-content-center" src="images/img-thum-tin-tuc.jpg">
-                                </a>
+            @isset($tintucs)
+                @foreach ($tintucs as $item)
+                    <div class="col-md-12 mt-4 mb-4">
+                        <section class="search-result-item">
+                            <div class="search-result-item-body p-2 mt-2">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a href="#"><img class="image justify-content-center"
+                                                         src="upload/feature_img/{{$item->feature_img}}">
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-7 p-0">
+                                        <h4 class="search-result-item-heading"><a href="post">{{ $item->title
+                                        }}</a></h4>
+                                        <p class="info">{{ $item->create_at }}</p>
+                                        <p class="description">{{ $item->descriptions }}</p>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a class="btn btn-primary btn-info btn-sm" href="post">Xem thêm...</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-7 p-0">
-                                <h4 class="search-result-item-heading"><a href="post">[Sự kiện] KM
-                                        100% Quy Đổi
-                                        Kim Cương Chào Đón Server mới</a></h4>
-                                <p class="info">12-02-2021</p>
-                                <p class="description">Trong thời gian diễn ra sự kiện từ: 10h ngày 12/2 đến 10h ngày
-                                    28/2 khi thực
-                                    hiện quy đổi xu -&gt; KC sẽ nhận được x2 KC
-                                    &nbsp;
-                                    VD: gói quy đổi 20k xu sẽ nhận được 400k KC (có tính mốc VIP + mốc nạp)
-                                    Áp dụng cho toàn bộ máy chủ</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-primary btn-info btn-sm" href="post">Xem thêm...</a>
-                            </div>
-                        </div>
+                        </section>
                     </div>
-                </section>
-            </div>
+                @endforeach
+            @endisset
+
         </div>
     </div>
 

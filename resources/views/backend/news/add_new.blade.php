@@ -48,19 +48,32 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title primary">Thêm bài viết mới</h4>
+                                            @if(session()->has('success'))
+                                                <div class="alert alert-success mb-2" role="alert">
+                                                    {{ session()->get('success') }}
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="card-body">
-                                            <form id="jquery-val-form" method="post" novalidate="novalidate">
+                                            <form id="jquery-val-form" method="post" enctype="multipart/form-data" action="admin/news/add-new">
+                                                @csrf
                                                 <div class="form-group">
                                                     <label class="form-label" for="title">Tiêu đề</label>
                                                     <input type="text" class="form-control" id="title"
                                                            name="title" placeholder="Nhập tiêu đề">
+                                                    @error('title')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-label" for="description">Trích
                                                         yếu</label>
-                                                    <textarea class="form-control" rows="4"
+                                                    <textarea class="form-control" rows="4" id="descriptions"
+                                                              name="descriptions"
                                                               placeholder="Nhập trích yếu của bài viết"></textarea>
+                                                    @error('descriptions')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="form-group">
@@ -71,19 +84,32 @@
                                                         <label class="custom-file-label" for="feature_img">Choose profile
                                                             pic</label>
                                                     </div>
+                                                    @error('feature_img')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label class="d-block" for="validationBio">Nội dung</label>
                                                     <textarea class="form-control" id="content"
                                                               name="content" rows="10"></textarea>
+                                                    @error('content')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-12">
+                                                    <div class="col-6">
                                                         <button type="submit" class="btn btn-primary" name="submit"
                                                                 value="Submit">Lưu bài viết
                                                         </button>
+
+                                                            <button class="btn btn-success">
+                                                                <i class="bx bx-send"></i>
+                                                                <span>Đăng ngay</span>
+                                                            </button>
+
                                                     </div>
                                                 </div>
                                             </form>
@@ -99,25 +125,25 @@
                         <div class="card invoice-action-wrapper shadow-none border">
                             <div class="card-body">
                                 <div class="invoice-action-btn mb-1">
-                                    <a href="#" class="btn btn-primary btn-block invoice-send-btn">
-                                        <i class="bx bx-send"></i>
-                                        <span>Đăng ngay</span>
+                                    <a href="admin/news/add-new" class="btn btn-primary btn-block invoice-send-btn">
+                                        <i class="bx bx-reset"></i>
+                                        <span>Reset</span>
                                     </a>
                                 </div>
                                 <div class="invoice-action-btn mb-1">
-                                    <button class="btn btn-light-danger btn-block">
-                                        <span>Xóa bài viết</span>
+                                    <button class="btn btn-light-warning btn-block">
+                                        <span>Preview</span>
                                     </button>
                                 </div>
 
                             </div>
                         </div>
                         <div class="invoice-payment">
-                            <div class="invoice-payment-option mb-2">
+                            {{--<div class="invoice-payment-option mb-2">
                                 <p>Thể loại bài viết</p>
 
-                            </div>
-                            <div class="invoice-terms">
+                            </div>--}}
+                            {{--<div class="invoice-terms">
                                 <div class="d-flex justify-content-between py-50">
                                     <span class="invoice-terms-title">Tin tức</span>
                                     <div class="custom-control custom-switch custom-switch-glow">
@@ -135,7 +161,7 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -156,9 +182,9 @@
     <script>
         CKEDITOR.replace( 'content', {
             filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
-
         } );
     </script>
+
     @include('ckfinder::setup')
     <!-- END: Page JS-->
 @endsection

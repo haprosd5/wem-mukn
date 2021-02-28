@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tintuc;
 use Illuminate\Http\Request;
 use App\Server;
 use App\User;
@@ -14,7 +15,8 @@ class HomeController extends Controller
     {
         $server_new=Server::orderBy('id','desc')->first();
         $server_list_new=Server::all();
-        return view('home',['server_new'=>$server_new,'server_list_new'=>$server_list_new]);
+        $tintucs = Tintuc::all();
+        return view('home',['server_new'=>$server_new,'server_list_new'=>$server_list_new, 'tintucs' => $tintucs]);
     }
     public function getPlayGame(Request $request)
     {
