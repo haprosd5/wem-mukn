@@ -12,6 +12,7 @@
 */
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\LoginMiddleware;
+include 'route_admin.php';
 //done
 Route::post('register','Auth\RegisterController@postRegister');
 Route::post('dangnhap','Auth\LoginController@postLogin');
@@ -43,7 +44,8 @@ Route::group(['prefix'=>'user','middleware'=>'Login'],function(){
         Route::get('/vongquay','VongquayController@getVongQuay');
 
         Route::get('/exchange','ExchangeController@getExchange');
-
     }        
 });
+
+
 
