@@ -39,8 +39,8 @@
             <section class="invoice-list-wrapper">
                 <!-- create invoice button-->
                 <div class="invoice-create-btn mb-1">
-                    <a href="admin/news/add-new" class="btn btn-primary glow invoice-create" role="button"
-                       aria-pressed="true">Thêm bài viết</a>
+                    <a href="admin/news/add-event" class="btn btn-primary glow invoice-create" role="button"
+                       aria-pressed="true">Thêm event mới</a>
                 </div>
                 <!-- Options and filter dropdown button-->
                 <div class="action-dropdown-btn d-none">

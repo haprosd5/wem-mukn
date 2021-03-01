@@ -101,11 +101,11 @@
 
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <button type="submit" class="btn btn-primary" name="submit"
+                                                        <button type="submit" class="btn btn-primary" name="submit_save" id="submit_save"
                                                                 value="Submit">Lưu bài viết
                                                         </button>
 
-                                                            <button class="btn btn-success">
+                                                            <button type="submit" class="btn btn-success" name="submit_post" id="submit_post">
                                                                 <i class="bx bx-send"></i>
                                                                 <span>Đăng ngay</span>
                                                             </button>

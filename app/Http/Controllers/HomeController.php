@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         $server_new=Server::orderBy('id','desc')->first();
         $server_list_new=Server::all();
-        $tintucs = Tintuc::all();
+        $tintucs = Tintuc::where('status', true)->get();
         return view('home',['server_new'=>$server_new,'server_list_new'=>$server_list_new, 'tintucs' => $tintucs]);
     }
     public function getPlayGame(Request $request)

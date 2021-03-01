@@ -14,7 +14,8 @@ class NewController extends Controller
     public function getNew()
     {
         $data = ['News'];
-        return view('backend.news.list_new')->with('data', $data);
+        $listNews = Tintuc::where('cate_id', 1)->get();
+        return view('backend.news.list_new',['data' => $data, 'list_news' => $listNews]);
     }
 
 
@@ -24,19 +25,23 @@ class NewController extends Controller
         return view('backend.news.add_new')->with('data', $data);
     }
 
-    public function postAddNew(Request $request, $status)
+    public function postAddNew(Request $request)
     {
         $this->validate($request,
             [
                 'title' => 'required',
                 'descriptions' => 'required',
-                'content' => 'required'
+                'content' => 'required',
+                //Kiểm tra đúng file đuôi .jpg,.jpeg,.png.gif và dung lượng không quá 2M
+                'feature_img' => 'mimes:jpg,jpeg,png,gif|max:2048',
             ],
             [
                 'title.required' => 'Tiêu đề không được để trống',
-//                'title.alpha_dash' => 'Tiêu đề chỉ được đặt a-z 0-9 không có ký tự đặc biệt',
                 'descriptions.required' => 'Trích yếu không được để trống',
                 'content.required' => 'Nội dung không được để trống',
+                //Tùy chỉnh hiển thị thông báo không thõa điều kiện
+                'feature_img.mimes' => 'Chỉ chấp nhận hình thẻ với đuôi .jpg .jpeg .png .gif',
+                'feature_img.max' => 'Hình thẻ giới hạn dung lượng không quá 2M',
             ]);
 
         // tao doi tuong bai viet
@@ -46,26 +51,20 @@ class NewController extends Controller
         $tintuc->slug = Str::slug(trim($request->title), '-');
         $tintuc->descriptions = trim($request->descriptions);
         $tintuc->cate_id = 1;
+        // đặt author cho bài viết
         $tintuc->author = Admin::find(1)->id;
         $tintuc->content = $request->content;
-        $tintuc->status = $status;
+        // đặt trạng thái cho bài viết
+        if ($request->has('submit_save')) {
+            $tintuc->status = false;
+        } else if ($request->has('submit_post')) {
+            $tintuc->status = true;
+        }
+        
 
 
-        //Lưu hình thẻ đại diện
-        $feature_img = '';
+        // Lưu hình thẻ đại diện
         if ($request->hasFile('feature_img')) {
-            //Hàm kiểm tra dữ liệu
-            $this->validate($request,
-                [
-                    //Kiểm tra đúng file đuôi .jpg,.jpeg,.png.gif và dung lượng không quá 2M
-                    'feature_img' => 'mimes:jpg,jpeg,png,gif|max:2048',
-                ],
-                [
-                    //Tùy chỉnh hiển thị thông báo không thõa điều kiện
-                    'feature_img.mimes' => 'Chỉ chấp nhận hình thẻ với đuôi .jpg .jpeg .png .gif',
-                    'feature_img.max' => 'Hình thẻ giới hạn dung lượng không quá 2M',
-                ]
-            );
             // Lưu hinh anh vao thu muc upload/feature_img
             $image = $request->file('feature_img');
             $filename = $image->getClientOriginalName();
@@ -76,10 +75,7 @@ class NewController extends Controller
         }
 
         $tintuc->save();
-
         return redirect('admin/news/add-new')->with('success', 'Thêm mới bài viết thành công');
-
-
     }
 
 

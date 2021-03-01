@@ -19,10 +19,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () { //'m
 
             Route::get('/news', 'NewController@getNew');
             Route::get('/news/add-new', 'NewController@getAddNew');
-            Route::post('/news/add-new/{status}', 'NewController@postAddNew');
+            Route::post('/news/add-new/', 'NewController@postAddNew');
 
             Route::get('/events', 'EventController@getEvent');
             Route::get('/news/add-event', 'EventController@getAddEvent');
+            Route::post('/news/add-event', 'EventController@postAddEvent');
         });
 
     }
