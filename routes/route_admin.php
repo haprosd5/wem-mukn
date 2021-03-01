@@ -16,14 +16,35 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () { //'m
         Route::group(['middleware' => 'Admin'], function () {
             Route::get('/home', 'AdminController@getAdmin');
 
+            Route::group(['prefix' => 'news'], function () {
+                Route::get('/', 'NewController@getNew');
+                Route::get('/add-new', 'NewController@getAddNew');
+                Route::post('/add-new/', 'NewController@postAddNew');
+                Route::get('/edit-new/{id}', 'NewController@getEditNew');
+                Route::post('/edit-new/{id}', 'NewController@postEditNew');
+                Route::get('/delete-new/{id}', 'NewController@getDeleteNew');
+            });
 
-            Route::get('/news', 'NewController@getNew');
-            Route::get('/news/add-new', 'NewController@getAddNew');
-            Route::post('/news/add-new/', 'NewController@postAddNew');
+            Route::group(['prefix' => 'events'], function () {
+                Route::get('/', 'EventController@getEvent');
+                Route::get('/add-event', 'EventController@getAddEvent');
+                Route::post('/add-event', 'EventController@postAddEvent');
+                Route::get('/edit-event/{id}', 'EventController@getEditEvent');
+                Route::post('/edit-event', 'EventController@postEditEvent');
+                Route::get('/delete-event/{id}', 'NewController@getDeleteEvent');
+            });
 
-            Route::get('/events', 'EventController@getEvent');
-            Route::get('/news/add-event', 'EventController@getAddEvent');
-            Route::post('/news/add-event', 'EventController@postAddEvent');
+
+            Route::group(['prefix' => 'payment'], function () {
+
+                Route::get('/card', 'PaymentCardController@getCard');
+                Route::get('/card-pay/{id}/{id_user}/{value}', 'PaymentCardController@getPayCard');
+
+            });
+
+
+
+
         });
 
     }

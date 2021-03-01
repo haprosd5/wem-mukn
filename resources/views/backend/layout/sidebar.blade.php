@@ -39,6 +39,22 @@
 
                 </ul>
             </li>
+
+            <li class="nav-item has-sub sidebar-group-active mt-1"><a href="#"><i
+                            class="bx bx-menu"
+                            data-icon="notebook"><span></span></i><span
+                            class="menu-title" data-i18n="Invoice">Payment</span></a>
+                <ul class="menu-content" style="">
+                    <li class="active hover"><a href="admin/payment/card"><i class="bx bx-right-arrow-alt"></i><span
+                                    class="menu-item" data-i18n="Invoice List">Nạp thẻ</span></a>
+                    </li>
+                    <li class=""><a href="admin/payment/bank"><i class="bx bx-right-arrow-alt"></i><span
+                                    class="menu-item"
+                                                                                                  data-i18n="Invoice">Nạp bank</span></a>
+                    </li>
+
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

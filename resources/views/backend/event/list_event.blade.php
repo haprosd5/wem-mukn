@@ -42,7 +42,12 @@
                     <a href="admin/news/add-event" class="btn btn-primary glow invoice-create" role="button"
                        aria-pressed="true">Thêm event mới</a>
                 </div>
-                <!-- Options and filter dropdown button-->
+                @if(session()->has('success'))
+                    <div class="alert alert-success mb-2" role="alert">
+                        {{ session()->get('success') }}
+                    </div>
+                @endif
+            <!-- Options and filter dropdown button-->
                 <div class="action-dropdown-btn d-none">
 
 
