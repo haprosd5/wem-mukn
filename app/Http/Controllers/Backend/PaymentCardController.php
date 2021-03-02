@@ -25,7 +25,7 @@ class PaymentCardController extends Controller
     public function getPayCard($id, $id_user, $value)
     {
         $user = User::find($id_user);
-        $user->xu = (int)$value;
+        $user->xu += (int)$value;
         $user->save();
 
         $card = PaymentMobi::find($id);

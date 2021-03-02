@@ -1,6 +1,6 @@
 @extends('backend.layout.index')
 @section('title')
-    Trang quản trị game
+    Trang tất cả event
 @endsection
 @section('link')
     @parent
@@ -39,15 +39,15 @@
             <section class="invoice-list-wrapper">
                 <!-- create invoice button-->
                 <div class="invoice-create-btn mb-1">
-                    <a href="admin/news/add-event" class="btn btn-primary glow invoice-create" role="button"
-                       aria-pressed="true">Thêm event mới</a>
+                    <a href="admin/events/add-event" class="btn btn-primary glow invoice-create" role="button"
+                       aria-pressed="true">Thêm event</a>
+                    @if(session()->has('success'))
+                        <div class="alert-success mt-2" role="alert">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
                 </div>
-                @if(session()->has('success'))
-                    <div class="alert alert-success mb-2" role="alert">
-                        {{ session()->get('success') }}
-                    </div>
-                @endif
-            <!-- Options and filter dropdown button-->
+                <!-- Options and filter dropdown button-->
                 <div class="action-dropdown-btn d-none">
 
 
@@ -67,362 +67,62 @@
                             <div class="actions action-btns d-flex align-items-center ml-2">
 
                                 <div class="dropdown invoice-options">
-                                    <button class="btn border dropdown-toggle mr-2" type="button"
+                                    <button class="btn border mr-2" type="button"
                                             id="invoice-options-btn" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
-                                        Options
+                                        Tìm kiếm
                                     </button>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="invoice-options-btn">
-                                        <a class="dropdown-item" href="javascript:;">Delete</a>
-                                        <a class="dropdown-item" href="javascript:;">Edit</a>
-                                        <a class="dropdown-item" href="javascript:;">View</a>
-                                        <a class="dropdown-item" href="javascript:;">Send</a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                         <div class="clear"></div>
-                        <table class="table invoice-data-table dt-responsive nowrap dataTable no-footer dtr-column"
-                               style="width: 100%;" id="DataTables_Table_0" role="grid">
-                            <thead>
-                            <tr role="row">
-                                <th class="control sorting_disabled" rowspan="1" colspan="1"
-                                    style="width: 0px; display: none;" aria-label=""></th>
-                                <th class="dt-checkboxes-cell dt-checkboxes-select-all sorting_disabled" tabindex="0"
-                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 1px;"
-                                    data-col="1" aria-label=""><input type="checkbox"></th>
-                                <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="
-                                        Invoice#
-                                    : activate to sort column descending">
-                                    <span class="align-middle">Invoice#</span>
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 144px;"
-                                    aria-label="Amount: activate to sort column ascending">Amount
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 105px;"
-                                    aria-label="Date: activate to sort column ascending">Date
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 248px;"
-                                    aria-label="Customer: activate to sort column ascending">Customer
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 153px;"
-                                    aria-label="Tags: activate to sort column ascending">Tags
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 216px;"
-                                    aria-label="Status: activate to sort column ascending">Status
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                    colspan="1" style="width: 116px;"
-                                    aria-label="Action: activate to sort column ascending">Action
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Ngày viết</th>
+                                    <th>Trích yếu</th>
+                                    <th>Trạng thái</th>
+                                    <th>ACTION</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @isset($list_news)
+                                    @foreach ($list_news as $item)
+                                        <tr>
+                                            <td >{{ $item->id }}</td>
+                                            <td class="text-bold-200" style="width: 400px;">{{ $item->title }}</td>
+                                            <td style="width: 248px;">{{ $item->updated_at }}</td>
+                                            <td class="text-bold-200" style="width: 700px;">{{ $item->descriptions
+                                            }}</td>
+                                            <td style="width: 248px;">{{ ($item->status == 0) ? 'Chưa đăng' : 'Đã đăng' }}</td>
+                                            <td style="width: 248px;">
+                                                <a href="admin/events/delete-event/{{ $item->id }}">
+                                                    <i class="badge-circle badge-circle-light-danger bx bx-trash
+                                            font-medium-1"></i>
+                                                </a>
+                                                <a href="admin/events/edit-event/{{ $item->id }}">
+                                                    <i class="badge-circle badge-circle-light-info bx bx-edit ml-1
+                                            font-medium-1"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
 
-                            <tr role="row" class="odd">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00123</a>
-                                </td>
-                                <td><span class="invoice-amount">$15,900</span></td>
-                                <td>
-                                    <small class="text-muted">23-07-19</small>
-                                </td>
-                                <td><span class="invoice-customer">Toyota Motor</span></td>
-                                <td>
-                                    <span class="bullet bullet-primary bullet-sm"></span>
-                                    <small class="text-muted">Car</small>
-                                </td>
-                                <td><span class="badge badge-light-success badge-pill">PAID</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00153</a>
-                                </td>
-                                <td><span class="invoice-amount">$1,090</span></td>
-                                <td>
-                                    <small class="text-muted">23-05-19</small>
-                                </td>
-                                <td><span class="invoice-customer">Pixinvent PVT. LTD</span></td>
-                                <td>
-                                    <span class="bullet bullet-dark bullet-sm"></span>
-                                    <small class="text-muted">Corporation</small>
-                                </td>
-                                <td><span class="badge badge-light-danger badge-pill">UNPAID</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00223</a>
-                                </td>
-                                <td><span class="invoice-amount">$459.30</span></td>
-                                <td>
-                                    <small class="text-muted">28-04-19</small>
-                                </td>
-                                <td><span class="invoice-customer">Communications</span></td>
-                                <td>
-                                    <span class="bullet bullet-success bullet-sm"></span>
-                                    <small class="text-muted">Technology</small>
-                                </td>
-                                <td><span class="badge badge-light-success badge-pill">PAID</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00326</a>
-                                </td>
-                                <td><span class="invoice-amount">$8,563</span></td>
-                                <td>
-                                    <small class="text-muted">06-01-19</small>
-                                </td>
-                                <td><span class="invoice-customer">Wells Fargo</span></td>
-                                <td>
-                                    <span class="bullet bullet-danger bullet-sm"></span>
-                                    <small class="text-muted">Food</small>
-                                </td>
-                                <td><span class="badge badge-light-success badge-pill">PAID</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00349</a>
-                                </td>
-                                <td><span class="invoice-amount">$125.00</span></td>
-                                <td>
-                                    <small class="text-muted">08-08-19</small>
-                                </td>
-                                <td><span class="invoice-customer">Volkswagen</span></td>
-                                <td>
-                                    <span class="bullet bullet-primary bullet-sm"></span>
-                                    <small class="text-muted">Car</small>
-                                </td>
-                                <td><span class="badge badge-light-success badge-pill">PAID</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00452</a>
-                                </td>
-                                <td><span class="invoice-amount">$90</span></td>
-                                <td>
-                                    <small class="text-muted">28-07-19</small>
-                                </td>
-                                <td><span class="invoice-customer">Alphabet</span></td>
-                                <td>
-                                    <span class="bullet bullet-info bullet-sm"></span>
-                                    <small class="text-muted">Electronic</small>
-                                </td>
-                                <td><span class="badge badge-light-warning badge-pill">Partially Paid</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00759</a>
-                                </td>
-                                <td><span class="invoice-amount">$10,960.20</span></td>
-                                <td>
-                                    <small class="text-muted">22-05-19</small>
-                                </td>
-                                <td><span class="invoice-customer">Ping An Insurance</span></td>
-                                <td>
-                                    <span class="bullet bullet-dark bullet-sm"></span>
-                                    <small class="text-muted">Corporation</small>
-                                </td>
-                                <td><span class="badge badge-light-warning badge-pill">Partially Paid</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00788</a>
-                                </td>
-                                <td><span class="invoice-amount">$555.50</span></td>
-                                <td>
-                                    <small class="text-muted">10-06-19</small>
-                                </td>
-                                <td><span class="invoice-customer">ExxonMobil</span></td>
-                                <td>
-                                    <span class="bullet bullet-warning bullet-sm"></span>
-                                    <small class="text-muted">Mobile</small>
-                                </td>
-                                <td><span class="badge badge-light-danger badge-pill">UNPAID</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00853</a>
-                                </td>
-                                <td><span class="invoice-amount">$10,503</span></td>
-                                <td>
-                                    <small class="text-muted">02-08-19</small>
-                                </td>
-                                <td><span class="invoice-customer">Chevron Corporation</span></td>
-                                <td>
-                                    <span class="bullet bullet-dark bullet-sm"></span>
-                                    <small class="text-muted">Corporation</small>
-                                </td>
-                                <td><span class="badge badge-light-danger badge-pill">UNPAID</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class=" control" tabindex="0" style="display: none;"></td>
-                                <td class="dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes"></td>
-                                <td class="sorting_1">
-                                    <a href="app-invoice.html">INV-00853</a>
-                                </td>
-                                <td><span class="invoice-amount">$115.06</span></td>
-                                <td>
-                                    <small class="text-muted">24-06-19</small>
-                                </td>
-                                <td><span class="invoice-customer">Samsung Electronics</span></td>
-                                <td>
-                                    <span class="bullet bullet-info bullet-sm"></span>
-                                    <small class="text-muted">Electronic</small>
-                                </td>
-                                <td><span class="badge badge-light-success badge-pill">PAID</span></td>
-                                <td>
-                                    <div class="invoice-action">
-                                        <a href="app-invoice.html" class="invoice-action-view mr-1">
-                                            <i class="bx bx-show-alt"></i>
-                                        </a>
-                                        <a href="app-invoice-edit.html" class="invoice-action-edit cursor-pointer">
-                                            <i class="bx bx-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="bottom">
                             <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                <ul class="pagination">
-                                    <li class="paginate_button page-item previous disabled"
-                                        id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0"
-                                                                            data-dt-idx="0" tabindex="0"
-                                                                            class="page-link">Previous</a></li>
-                                    <li class="paginate_button page-item active"><a href="#"
-                                                                                    aria-controls="DataTables_Table_0"
-                                                                                    data-dt-idx="1" tabindex="0"
-                                                                                    class="page-link">1</a></li>
-                                    <li class="paginate_button page-item "><a href="#"
-                                                                              aria-controls="DataTables_Table_0"
-                                                                              data-dt-idx="2" tabindex="0"
-                                                                              class="page-link">2</a></li>
-                                    <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#"
-                                                                                                               aria-controls="DataTables_Table_0"
-                                                                                                               data-dt-idx="3"
-                                                                                                               tabindex="0"
-                                                                                                               class="page-link">Next</a>
-                                    </li>
-                                </ul>
+                                {{ $list_news->render('vendor.pagination') }}
                             </div>
                         </div>
+                        @endisset
                     </div>
                 </div>
             </section>

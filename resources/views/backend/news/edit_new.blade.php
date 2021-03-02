@@ -1,6 +1,6 @@
 @extends('backend.layout.index')
 @section('title')
-    Trang quản trị game
+    Trang edit nội dung bài viết
 @endsection
 @section('link')
     @parent
@@ -49,7 +49,7 @@
                                         <div class="card-header">
                                             <h4 class="card-title primary">Sửa bài viết</h4>
                                             @if(session()->has('success'))
-                                                <div class="alert alert-success mb-2" role="alert">
+                                                <div class="alert-success mt-2" role="alert">
                                                     {{ session()->get('success') }}
                                                 </div>
                                             @endif
@@ -65,7 +65,7 @@
                                                                name="title" value="{{
                                                            $new->title }}">
                                                         @error('title')
-                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                         @enderror
                                                     </div>
                                                     <div class="form-group">
@@ -77,7 +77,7 @@
                                                               $new->descriptions
                                                               }}</textarea>
                                                         @error('descriptions')
-                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 
@@ -96,7 +96,7 @@
                                                                 pic</label>
                                                         </div>
                                                         @error('feature_img')
-                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                         @enderror
 
                                                     </div>
@@ -107,7 +107,7 @@
                                                                   name="content"
                                                                   rows="10">{{ $new->content }}</textarea>
                                                         @error('content')
-                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 

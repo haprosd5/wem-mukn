@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () { //'m
                 Route::get('/add-event', 'EventController@getAddEvent');
                 Route::post('/add-event', 'EventController@postAddEvent');
                 Route::get('/edit-event/{id}', 'EventController@getEditEvent');
-                Route::post('/edit-event', 'EventController@postEditEvent');
+                Route::post('/edit-event/{id}', 'EventController@postEditEvent');
                 Route::get('/delete-event/{id}', 'NewController@getDeleteEvent');
             });
 

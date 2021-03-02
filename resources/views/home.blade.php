@@ -169,18 +169,20 @@
                             <div class="search-result-item-body p-2 mt-2">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a href="#"><img class="image justify-content-center"
-                                                         src="upload/feature_img/{{$item->feature_img}}">
+                                        <a href="tin-tuc/{{ $item->slug }}"><img class="image justify-content-center"
+                                                         src="<?php if ($item->feature_img ==
+                                                         'https://via.placeholder.com/150') {?> https://via.placeholder.com/150 <?php } else { ?>
+                                                                 upload/feature_img/{{ $item->feature_img}} <?php }?>">
                                         </a>
                                     </div>
                                     <div class="col-sm-7 p-0">
-                                        <h4 class="search-result-item-heading"><a href="post">{{ $item->title
+                                        <h4 class="search-result-item-heading"><a href="tin-tuc/{{ $item->slug }}">{{ $item->title
                                         }}</a></h4>
                                         <p class="info">{{ $item->create_at }}</p>
                                         <p class="description">{{ $item->descriptions }}</p>
                                     </div>
                                     <div class="col-sm-2">
-                                        <a class="btn btn-primary btn-info btn-sm" href="post">Xem thêm...</a>
+                                        <a class="btn btn-primary btn-info btn-sm" href="tin-tuc/{{ $item->slug }}">Xem thêm...</a>
                                     </div>
                                 </div>
                             </div>

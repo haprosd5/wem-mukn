@@ -30,10 +30,14 @@
                             data-icon="notebook"><span></span></i><span
                             class="menu-title" data-i18n="Invoice">Bài viết</span></a>
                 <ul class="menu-content" style="">
-                    <li class="active hover"><a href="admin/news"><i class="bx bx-right-arrow-alt"></i><span
+                    <li class="<?php if(Request::url() == url('admin/news')) { echo 'active'; }  ?>  hover"><a
+                                href="admin/news"><i
+                                    class="bx
+                    bx-right-arrow-alt"></i><span
                                     class="menu-item" data-i18n="Invoice List">Tin tức</span></a>
                     </li>
-                    <li class=""><a href="admin/event"><i class="bx bx-right-arrow-alt"></i><span class="menu-item"
+                    <li class="<?php if(Request::url() == url('admin/events')) { echo 'active'; }  ?> "><a
+                                href="admin/events"><i class="bx bx-right-arrow-alt"></i><span class="menu-item"
                                                                                                        data-i18n="Invoice">Event</span></a>
                     </li>
 
@@ -45,10 +49,10 @@
                             data-icon="notebook"><span></span></i><span
                             class="menu-title" data-i18n="Invoice">Payment</span></a>
                 <ul class="menu-content" style="">
-                    <li class="active hover"><a href="admin/payment/card"><i class="bx bx-right-arrow-alt"></i><span
+                    <li class="<?php if(Request::url() == url('admin/payment/card')) { echo 'active'; }  ?>  hover"><a href="admin/payment/card"><i class="bx bx-right-arrow-alt"></i><span
                                     class="menu-item" data-i18n="Invoice List">Nạp thẻ</span></a>
                     </li>
-                    <li class=""><a href="admin/payment/bank"><i class="bx bx-right-arrow-alt"></i><span
+                    <li class="<?php if(Request::url() == url('admin/payment/bank')) { echo 'active'; }  ?>"><a href="admin/payment/bank"><i class="bx bx-right-arrow-alt"></i><span
                                     class="menu-item"
                                                                                                   data-i18n="Invoice">Nạp bank</span></a>
                     </li>

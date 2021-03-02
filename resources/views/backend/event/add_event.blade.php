@@ -1,6 +1,6 @@
 @extends('backend.layout.index')
 @section('title')
-    Trang quản trị game
+    Trang thêm mới event
 @endsection
 @section('link')
     @parent
@@ -17,7 +17,7 @@
             <div class="content-header-left col-12 mb-2 mt-1">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h5 class="content-header-title float-left pr-1 mb-0">List bài viết</h5>
+                        <h5 class="content-header-title float-left pr-1 mb-0">ListEvent</h5>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb p-0 mb-0 pl-1">
                                 <li class="breadcrumb-item"><a href="admin/home"><i class="bx bx-home-alt"></i></a>
@@ -47,22 +47,23 @@
                                 <div class="card-body pb-0 mx-25">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4 class="card-title primary">Thêm bài viết mới</h4>
+                                            <h4 class="card-title primary">Thêm event mới</h4>
                                             @if(session()->has('success'))
-                                                <div class="alert alert-success mb-2" role="alert">
+                                                <div class="alert-success mt-2" role="alert">
                                                     {{ session()->get('success') }}
                                                 </div>
                                             @endif
                                         </div>
                                         <div class="card-body">
-                                            <form id="jquery-val-form" method="post" enctype="multipart/form-data" action="admin/news/add-new">
+                                            <form id="jquery-val-form" method="post" enctype="multipart/form-data"
+                                                  action="admin/events/add-event">
                                                 @csrf
                                                 <div class="form-group">
                                                     <label class="form-label" for="title">Tiêu đề</label>
                                                     <input type="text" class="form-control" id="title"
                                                            name="title" placeholder="Nhập tiêu đề">
                                                     @error('title')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
@@ -72,7 +73,7 @@
                                                               name="descriptions"
                                                               placeholder="Nhập trích yếu của bài viết"></textarea>
                                                     @error('descriptions')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
@@ -85,7 +86,7 @@
                                                             pic</label>
                                                     </div>
                                                     @error('feature_img')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                     @enderror
 
                                                 </div>
@@ -95,7 +96,7 @@
                                                     <textarea class="form-control" id="content"
                                                               name="content" rows="10"></textarea>
                                                     @error('content')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 

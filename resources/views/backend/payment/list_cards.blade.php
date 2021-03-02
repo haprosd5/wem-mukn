@@ -42,7 +42,7 @@
                     <a href="admin/news/add-new" class="btn btn-primary glow invoice-create" role="button"
                        aria-pressed="true">Thêm gitf code</a>
                     @if(session()->has('success'))
-                       <div class="alert alert-success mb-2" role="alert">
+                       <div class="alert alert-success mt-2" role="alert">
                            {{ session()->get('success') }}
                        </div>
                    @endif
@@ -131,6 +131,7 @@
 
                                         </tr>
                                     @endforeach
+
                                 @endisset
 
 
@@ -139,7 +140,8 @@
                         </div>
                         <div class="bottom">
                             <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                <ul class="pagination">
+                                {{ $allPay->render('vendor.pagination') }}
+                                {{--<ul class="pagination">
                                     <li class="paginate_button page-item previous disabled"
                                         id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0"
                                                                             data-dt-idx="0" tabindex="0"
@@ -158,9 +160,10 @@
                                                                                                                tabindex="0"
                                                                                                                class="page-link">Next</a>
                                     </li>
-                                </ul>
+                                </ul>--}}
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>

@@ -1,6 +1,6 @@
 @extends('backend.layout.index')
 @section('title')
-    Trang quản trị game
+    Trang thêm bài viết
 @endsection
 @section('link')
     @parent
@@ -49,7 +49,7 @@
                                         <div class="card-header">
                                             <h4 class="card-title primary">Thêm bài viết mới</h4>
                                             @if(session()->has('success'))
-                                                <div class="alert alert-success mb-2" role="alert">
+                                                <div class="alert-success mt-2" role="alert">
                                                     {{ session()->get('success') }}
                                                 </div>
                                             @endif
@@ -62,7 +62,7 @@
                                                     <input type="text" class="form-control" id="title"
                                                            name="title" placeholder="Nhập tiêu đề">
                                                     @error('title')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
@@ -72,7 +72,7 @@
                                                               name="descriptions"
                                                               placeholder="Nhập trích yếu của bài viết"></textarea>
                                                     @error('descriptions')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
@@ -85,7 +85,7 @@
                                                             pic</label>
                                                     </div>
                                                     @error('feature_img')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                     @enderror
 
                                                 </div>
@@ -95,7 +95,7 @@
                                                     <textarea class="form-control" id="content"
                                                               name="content" rows="10"></textarea>
                                                     @error('content')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
@@ -182,9 +182,15 @@
     <script>
         CKEDITOR.replace( 'content', {
             filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
+            filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+            filebrowserWindowWidth : '1000',
+            filebrowserWindowHeight : '700'
         } );
     </script>
 
     @include('ckfinder::setup')
+    <script type="text/javascript" src="/js/ckfinder/ckfinder.js"></script>
+    <script>CKFinder.config( { connectorPath: '/ckfinder/connector' } );</script>
     <!-- END: Page JS-->
 @endsection

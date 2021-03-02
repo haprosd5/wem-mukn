@@ -67,7 +67,7 @@
                             <ul class="search-list"></ul>
                         </div>
                     </li>
-                    <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href=""
+                    {{--<li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href=""
                                                                            data-toggle="dropdown"><i
                                     class="ficon bx bx-bell"></i><span
                                     class="badge badge-pill badge-primary badge-up">5</span></a>
@@ -221,7 +221,7 @@
                                         class="dropdown-item p-50 text-primary justify-content-center"
                                         href="javascript:void(0)">Read all notifications</a></li>
                         </ul>
-                    </li>
+                    </li>--}}
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link"
                                                                    href="" data-toggle="dropdown">
                             <div class="user-nav d-sm-flex d-none"><span class="user-name">

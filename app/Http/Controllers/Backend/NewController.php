@@ -29,7 +29,7 @@ class NewController extends Controller
     {
         $this->validate($request,
             [
-                'title' => 'required',
+                'title' => 'required|unique:news',
                 'descriptions' => 'required',
                 'content' => 'required',
                 //Kiểm tra đúng file đuôi .jpg,.jpeg,.png.gif và dung lượng không quá 2M
@@ -37,6 +37,7 @@ class NewController extends Controller
             ],
             [
                 'title.required' => 'Tiêu đề không được để trống',
+                'title.unique'=>'Tên tiêu đề trùng lặp',
                 'descriptions.required' => 'Trích yếu không được để trống',
                 'content.required' => 'Nội dung không được để trống',
                 //Tùy chỉnh hiển thị thông báo không thõa điều kiện
@@ -108,37 +109,35 @@ class NewController extends Controller
                 'feature_img.max' => 'Hình thẻ giới hạn dung lượng không quá 2M',
             ]);
 
-        // tao doi tuong bai viet
+        // cap nhat thong tin bai viet neu thay doi
         $tintuc = Tintuc::find($id);
         $tintuc->setConnection('mysql');
         $tintuc->title = trim($request->title);
         $tintuc->slug = Str::slug(trim($request->title), '-');
         $tintuc->descriptions = trim($request->descriptions);
-        $tintuc->cate_id = 1;
-        // đặt author cho bài viết
-        $tintuc->author = Admin::find(1)->id;
         $tintuc->content = $request->content;
-        // đặt trạng thái cho bài viết
-        if ($request->has('submit_save')) {
-            $tintuc->status = false;
-        } else if ($request->has('submit_post')) {
-            $tintuc->status = true;
-        }
 
 
-        // Lưu hình thẻ đại diện
+
+        // Lưu hình thẻ đại diện new thay doi
         if ($request->hasFile('feature_img')) {
             // Lưu hinh anh vao thu muc upload/feature_img
             $image = $request->file('feature_img');
             $filename = $image->getClientOriginalName();
             $image->move(public_path('upload/feature_img'), $filename);
             $tintuc->feature_img = $request->file('feature_img')->getClientOriginalName();
-        } else {
-            $tintuc->feature_img = 'https://via.placeholder.com/150';
         }
 
-        $tintuc->save();
-        return redirect('admin/news')->with('success', 'Cập nhật bài viết thành công');
+        // đặt trạng thái cho bài viết
+        if ($request->has('submit_save')) {
+            $tintuc->status = false;
+            $tintuc->save();
+            return redirect('admin/news/add-new')->with('success', 'Lưu bài viết thành công');
+        } else if ($request->has('submit_post')) {
+            $tintuc->status = true;
+            $tintuc->save();
+            return redirect('admin/news')->with('success', 'Cập nhật bài viết thành công');
+        }
     }
 
     public function getDeleteNew($id) {

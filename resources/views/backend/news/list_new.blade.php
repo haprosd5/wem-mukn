@@ -1,6 +1,6 @@
 @extends('backend.layout.index')
 @section('title')
-    Trang quản trị game
+    Trang quản lý tất cả bài viết
 @endsection
 @section('link')
     @parent
@@ -42,7 +42,7 @@
                     <a href="admin/news/add-new" class="btn btn-primary glow invoice-create" role="button"
                        aria-pressed="true">Thêm bài viết</a>
                        @if(session()->has('success'))
-                       <div class="alert alert-success mb-2" role="alert">
+                       <div class="alert-success mt-2" role="alert">
                            {{ session()->get('success') }}
                        </div>
                    @endif
@@ -111,7 +111,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                @endisset
+
 
 
                                 </tbody>
@@ -119,28 +119,10 @@
                         </div>
                         <div class="bottom">
                             <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                <ul class="pagination">
-                                    <li class="paginate_button page-item previous disabled"
-                                        id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0"
-                                                                            data-dt-idx="0" tabindex="0"
-                                                                            class="page-link">Previous</a></li>
-                                    <li class="paginate_button page-item active"><a href="#"
-                                                                                    aria-controls="DataTables_Table_0"
-                                                                                    data-dt-idx="1" tabindex="0"
-                                                                                    class="page-link">1</a></li>
-                                    <li class="paginate_button page-item "><a href="#"
-                                                                              aria-controls="DataTables_Table_0"
-                                                                              data-dt-idx="2" tabindex="0"
-                                                                              class="page-link">2</a></li>
-                                    <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#"
-                                                                                                               aria-controls="DataTables_Table_0"
-                                                                                                               data-dt-idx="3"
-                                                                                                               tabindex="0"
-                                                                                                               class="page-link">Next</a>
-                                    </li>
-                                </ul>
+                                {{ $list_news->render('vendor.pagination') }}
                             </div>
                         </div>
+                        @endisset
                     </div>
                 </div>
             </section>

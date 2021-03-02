@@ -1,6 +1,6 @@
 @extends('backend.layout.index')
 @section('title')
-    Trang quản trị game
+    Trang edit nội dung event
 @endsection
 @section('link')
     @parent
@@ -47,72 +47,88 @@
                                 <div class="card-body pb-0 mx-25">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4 class="card-title primary">Thêm bài viết mới</h4>
+                                            <h4 class="card-title primary">Sửa event mới</h4>
                                             @if(session()->has('success'))
-                                                <div class="alert alert-success mb-2" role="alert">
+                                                <div class="alert-success mt-2" role="alert">
                                                     {{ session()->get('success') }}
                                                 </div>
                                             @endif
                                         </div>
+
                                         <div class="card-body">
-                                            <form id="jquery-val-form" method="post" enctype="multipart/form-data" action="admin/news/add-new">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label class="form-label" for="title">Tiêu đề</label>
-                                                    <input type="text" class="form-control" id="title"
-                                                           name="title" placeholder="Nhập tiêu đề">
-                                                    @error('title')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label" for="description">Trích
-                                                        yếu</label>
-                                                    <textarea class="form-control" rows="4" id="descriptions"
-                                                              name="descriptions"
-                                                              placeholder="Nhập trích yếu của bài viết"></textarea>
-                                                    @error('descriptions')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Ảnh đại diện bài viết</label>
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="feature_img"
-                                                               name="feature_img">
-                                                        <label class="custom-file-label" for="feature_img">Choose profile
-                                                            pic</label>
+                                            @isset($new)
+                                                <form id="jquery-val-form" method="post" enctype="multipart/form-data"
+                                                      action="admin/events/edit-event/{{ $new->id }}">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="title">Tiêu đề</label>
+                                                        <input type="text" class="form-control" id="title"
+                                                               name="title" value="{{
+                                                           $new->title }}">
+                                                        @error('title')
+                                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
-                                                    @error('feature_img')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="description">Trích
+                                                            yếu</label>
+                                                        <textarea class="form-control" rows="4" id="descriptions"
+                                                                  name="descriptions"
+                                                                  placeholder="Nhập trích yếu của bài viết">{{
+                                                              $new->descriptions
+                                                              }}</textarea>
+                                                        @error('descriptions')
+                                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
 
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label>Ảnh đại diện bài viết</label>
+                                                        <img width="200px" class="mt-1"
+                                                             src="upload/feature_img/{{$new->feature_img}}"/>
+                                                        <div class="custom-file mt-1">
 
-                                                <div class="form-group">
-                                                    <label class="d-block" for="validationBio">Nội dung</label>
-                                                    <textarea class="form-control" id="content"
-                                                              name="content" rows="10"></textarea>
-                                                    @error('content')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
 
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <button type="submit" class="btn btn-primary" name="submit_save" id="submit_save"
-                                                                value="Submit">Lưu bài viết
-                                                        </button>
+                                                            <input type="file" class="custom-file-input"
+                                                                   id="feature_img"
+                                                                   name="feature_img">
+                                                            <label class="custom-file-label" for="feature_img">Choose
+                                                                profile
+                                                                pic</label>
+                                                        </div>
+                                                        @error('feature_img')
+                                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                                        @enderror
 
-                                                            <button type="submit" class="btn btn-success" name="submit_post" id="submit_post">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="d-block" for="validationBio">Nội dung</label>
+                                                        <textarea class="form-control" id="content"
+                                                                  name="content"
+                                                                  rows="10">{{ $new->content }}</textarea>
+                                                        @error('content')
+                                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <button type="submit" class="btn btn-primary"
+                                                                    name="submit_save" id="submit_save"
+                                                                    value="Submit">Lưu bài viết
+                                                            </button>
+
+                                                            <button type="submit" class="btn btn-success"
+                                                                    name="submit_post" id="submit_post">
                                                                 <i class="bx bx-send"></i>
                                                                 <span>Đăng ngay</span>
                                                             </button>
 
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            @endisset
                                         </div>
                                     </div>
                                 </div>

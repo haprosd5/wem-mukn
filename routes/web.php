@@ -21,6 +21,9 @@ Route::get('logout','Auth\LoginController@getLogout');
 
 
 Route::get('/','HomeController@getHome')->name('home');
+Route::get('/tin-tuc/{slug}','HomeController@getTintuc');
+
+// route play game
 Route::get('/play','HomeController@getPlayGame')->name('play');
 
 Route::group(['prefix'=>'user','middleware'=>'Login'],function(){        
