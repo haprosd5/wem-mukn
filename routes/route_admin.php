@@ -15,7 +15,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () { //'m
 
         Route::group(['middleware' => 'Admin'], function () {
             Route::get('/home', 'AdminController@getAdmin');
-
+            // phần tin tức
             Route::group(['prefix' => 'news'], function () {
                 Route::get('/', 'NewController@getNew');
                 Route::get('/add-new', 'NewController@getAddNew');
@@ -24,7 +24,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () { //'m
                 Route::post('/edit-new/{id}', 'NewController@postEditNew');
                 Route::get('/delete-new/{id}', 'NewController@getDeleteNew');
             });
-
+            // phân sự kiện
             Route::group(['prefix' => 'events'], function () {
                 Route::get('/', 'EventController@getEvent');
                 Route::get('/add-event', 'EventController@getAddEvent');
@@ -34,7 +34,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () { //'m
                 Route::get('/delete-event/{id}', 'NewController@getDeleteEvent');
             });
 
-
+            // phần payment
             Route::group(['prefix' => 'payment'], function () {
 
                 Route::get('/card', 'PaymentCardController@getCard');

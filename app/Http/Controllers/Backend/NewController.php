@@ -54,12 +54,7 @@ class NewController extends Controller
         // đặt author cho bài viết
         $tintuc->author = Admin::find(1)->id;
         $tintuc->content = $request->content;
-        // đặt trạng thái cho bài viết
-        if ($request->has('submit_save')) {
-            $tintuc->status = false;
-        } else if ($request->has('submit_post')) {
-            $tintuc->status = true;
-        }
+        
 
 
         // Lưu hình thẻ đại diện
@@ -73,8 +68,18 @@ class NewController extends Controller
             $tintuc->feature_img = 'https://via.placeholder.com/150';
         }
 
-        $tintuc->save();
-        return redirect('admin/news/add-new')->with('success', 'Thêm mới bài viết thành công');
+        
+        // đặt trạng thái cho bài viết
+        if ($request->has('submit_save')) {
+            $tintuc->status = false;
+            $tintuc->save();
+            return redirect('admin/news/add-new')->with('success', 'Lưu bài viết thành công');
+        } else if ($request->has('submit_post')) {
+            $tintuc->status = true;
+            $tintuc->save();
+            return redirect('admin/news')->with('success', 'Đăng tải bài viết thành công');
+        }
+        
     }
 
     public function getEditNew($id)
