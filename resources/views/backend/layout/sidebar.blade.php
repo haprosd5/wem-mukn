@@ -59,6 +59,19 @@
 
                 </ul>
             </li>
+
+            <li class="nav-item has-sub sidebar-group-active mt-1"><a href="#"><i
+                class="bx bx-menu"
+                data-icon="notebook"><span></span></i><span
+                class="menu-title" data-i18n="Invoice">GiftCode</span></a>
+                    <ul class="menu-content" style="">
+                        <li class="<?php if(Request::url() == url('admin/create-giftcode')) { echo 'active'; }  ?>  hover"><a href="admin/giftcode/create-giftcode"><i class="bx bx-right-arrow-alt"></i><span
+                                        class="menu-item" data-i18n="Invoice List">List GiftCode</span></a>
+                    </li>
+                    
+
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

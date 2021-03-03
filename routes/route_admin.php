@@ -7,11 +7,12 @@ use App\Http\Middleware\LoginMiddleware;
 Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () { //'middleware'=>'Admin',
     {
         Route::get('/login', 'LoginController@getLoginAdmin');
-        Route::get('/logout', 'LoginController@getLogout');
         Route::post('/login', 'LoginController@postLoginAdmin');
 
         Route::get('/register', 'RegisterController@getRegister');
         Route::post('/register', 'RegisterController@postRegister');
+
+        Route::get('/logout', 'LoginController@getLogout');
 
         Route::group(['middleware' => 'Admin'], function () {
             Route::get('/home', 'AdminController@getAdmin');
@@ -40,6 +41,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () { //'m
                 Route::get('/card', 'PaymentCardController@getCard');
                 Route::get('/card-pay/{id}/{id_user}/{value}', 'PaymentCardController@getPayCard');
 
+            });
+
+            // phần payment
+            Route::group(['prefix' => 'giftcode'], function () {
+
+                Route::get('/', 'GiftCodeController@getGiftCode');
+                Route::post('/create-giftcode', 'GiftCodeController@postGiftCode');
             });
 
 

@@ -14,7 +14,7 @@ class NewController extends Controller
     public function getNew()
     {
         $data = ['News'];
-        $listNews = Tintuc::where('cate_id', 1)->paginate(15);
+        $listNews = Tintuc::where('cate_id', '=', 1)->paginate(15);
         return view('backend.news.list_new', ['data' => $data, 'list_news' => $listNews]);
     }
 

@@ -16,8 +16,24 @@ class HomeController extends Controller
     {
         $server_new = Server::orderBy('id', 'desc')->first();
         $server_list_new = Server::all();
-        $tintucs = Tintuc::where('status', '=', 1, 'AND', 'cate_id', '=', 1)->paginate(15);
+        $tintucs = DB::table('news')
+        ->where('news.cate_id', '=', 1)
+        ->where('news.status', '=', 1)->get();
         return view('home', ['server_new' => $server_new, 'server_list_new' => $server_list_new, 'tintucs' => $tintucs]);
+    }
+
+    public function getEvent()
+    {
+        $server_new = Server::orderBy('id', 'desc')->first();
+        $server_list_event = Server::all();
+
+        $event = DB::table('news')
+        ->where('news.cate_id', '=', 2)
+        ->where('news.status', '=', 1)->get();
+
+
+        
+        return view('home', ['server_new' => $server_new, 'server_list_new' => $server_list_event, 'tintucs' => $event]);
     }
 
     public function getPlayGame(Request $request)

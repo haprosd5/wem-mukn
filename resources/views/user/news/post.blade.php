@@ -177,7 +177,7 @@
                 <!-- Date/Time -->
 
                 <p><i class="fa fa-folder-open-o" aria-hidden="true"></i>
-                    <a href="/news/tin-tuc">Tin tức</a> <i class="fa fa-clock-o" aria-hidden="true"></i> Đăng vào lúc:
+                    <a href="<?php if ($tintuc[0]->cate_id == 1) {echo '';} else {echo '/event';}?>"><?php if ($tintuc[0]->cate_id == 1) {echo 'Tin tức';} else {echo 'Sự kiện';}?></a> <i class="fa fa-clock-o" aria-hidden="true"></i> Đăng vào lúc:
                     {{ $tintuc[0]->created_at }} <i class="fa fa-user" aria-hidden="true"></i> {{ $tintuc[0]->name }}
                 </p>
 

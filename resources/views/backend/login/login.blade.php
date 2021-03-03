@@ -28,6 +28,11 @@
                                         email
                                     </small>
                                 </div>
+                                @if(session()->has('error'))
+                                    <div class="alert-danger mt-2" role="alert">
+                                        {{ session()->get('error') }}
+                                    </div>
+                                @endif
                             </div>
                             <form action="admin/login" method="post">
                                 @csrf

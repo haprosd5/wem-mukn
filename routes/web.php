@@ -21,6 +21,9 @@ Route::get('logout','Auth\LoginController@getLogout');
 
 
 Route::get('/','HomeController@getHome')->name('home');
+
+Route::get('/event','HomeController@getEvent')->name('event');
+
 Route::get('/tin-tuc/{slug}','HomeController@getTintuc');
 
 // route play game
